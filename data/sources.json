@@ -1,0 +1,40 @@
+{
+  "sources": [
+    {
+      "name": "Failory",
+      "type": "curated",
+      "urls": [
+        "https://www.failory.com/cemetery",
+        "https://www.failory.com/interviews"
+      ],
+      "description": "Curated startup failure postmortems and founder interviews"
+    },
+    {
+      "name": "Indie Hackers — Postmortems",
+      "type": "curated",
+      "urls": [
+        "https://www.indiehackers.com/products?sorting=newest&revenue=0"
+      ],
+      "description": "Indie Hackers products with $0 revenue (often postmortems)"
+    },
+    {
+      "name": "HN — Who Killed My Startup",
+      "type": "direct",
+      "urls": [
+        "https://news.ycombinator.com/item?id=35997874",
+        "https://news.ycombinator.com/item?id=30945724",
+        "https://news.ycombinator.com/item?id=27384680"
+      ],
+      "description": "HN 'Ask HN: What killed your startup?' threads"
+    },
+    {
+      "name": "Medium Startup Postmortems",
+      "type": "direct",
+      "urls": [
+        "https://medium.com/@carolynwalked/the-demise-of-theranos-8f9d9e2cdf0e",
+        "https://medium.com/swlh/why-my-startup-failed-and-what-i-learned-from-it-b93e5f36a843"
+      ],
+      "description": "Medium articles about startup failures"
+    }
+  ]
+}

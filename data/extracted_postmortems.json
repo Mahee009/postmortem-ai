@@ -1,0 +1,978 @@
+[
+  {
+    "id": "c4284935-2b02-4042-b0e7-e36745f2abda",
+    "source_url": "https://www.failory.com/cemetery/quibi",
+    "startup_name": "Quibi",
+    "startup_type": "Short-form streaming platform",
+    "stage_at_failure": "growth",
+    "team_size": 250,
+    "months_alive": null,
+    "funding": "Series A",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [
+      "monetization_failed"
+    ],
+    "warning_signs_missed": [
+      "bad_timing",
+      "distribution_failed"
+    ],
+    "decision_point": "They realized the demand for short-form content didn't fit well with existing platforms and that was a poor choice. ",
+    "what_they_would_do_differently": "Diversify their product to keep up with what consumers wanted more.",
+    "raw_summary": "Quibi failed due to its focus on short-form streaming video, which proved difficult for the platform to scale, leading to significant revenue losses and lack of adoption from major networks.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "bce27a03-bb5c-48f3-be8e-7233890238bc",
+    "source_url": "https://www.failory.com/cemetery/chacha",
+    "startup_name": "ChaCha",
+    "startup_type": "Search engine with a live human being",
+    "stage_at_failure": "growth",
+    "team_size": 50,
+    "months_alive": 11,
+    "funding": "Series A+",
+    "primary_failure_cause": "competition",
+    "secondary_causes": [
+      "wrong_pricing",
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "no_market_need",
+      "team_issues"
+    ],
+    "decision_point": "No specific decision point given.",
+    "what_they_would_do_differently": "Not specified.",
+    "raw_summary": "ChaCha's main issue was intense competition from Google in search, leading to financial difficulties after three years. However, ChaCha found it difficult to compete due to pricing and customer experience issues. The team failed to pivot to address these issues.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "2cc5bb4a-6e9e-4f24-8f26-a28ae06644c6",
+    "source_url": "https://www.failory.com/cemetery/circleback-lending",
+    "startup_name": "CircleBack Lending",
+    "startup_type": "Marketplace",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 4,
+    "funding": "Series A+",
+    "primary_failure_cause": "bad_business_model",
+    "secondary_causes": [
+      "wrong_pricing",
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "wrong_pricing",
+      "poor_product"
+    ],
+    "decision_point": "They failed to make their business model profitable.",
+    "what_they_would_do_differently": "To not fail, they would need a more financially sustainable business model and better manage employee turnover.",
+    "raw_summary": "CircleBack Lending was shut down in 2016 when the startup failed to adapt from its original idea into a successful financial service offering.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "df9bb60b-458d-4f52-87ab-9b73527f466c",
+    "source_url": "https://www.failory.com/cemetery/dazo",
+    "startup_name": "Dazo",
+    "startup_type": "B2C App",
+    "stage_at_failure": "growth",
+    "team_size": 10,
+    "months_alive": 12,
+    "funding": "seed",
+    "primary_failure_cause": "competition",
+    "secondary_causes": [
+      "competition"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "Dazo shut down in 2016 after facing stiff competition in India's food delivery market.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "a33fd681-783c-44b0-8f09-18fa31529c53",
+    "source_url": "https://www.failory.com/cemetery/daqri",
+    "startup_name": "Daqri",
+    "startup_type": "Hardware",
+    "stage_at_failure": "pre-market",
+    "team_size": 100,
+    "months_alive": 9,
+    "funding": "Seed",
+    "primary_failure_cause": "ruck_out_of_cash",
+    "secondary_causes": [
+      "wrong_pricing"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "Daqri raised a $275M round of funding before running out of cash.",
+    "what_they_would_do_differently": "",
+    "raw_summary": "Daqri, which offers augmented reality experiences, did not find a market for its product and ran out of cash after securing $275M in funding.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "a3395b04-ff34-480d-a2b4-7fb5fef8be92",
+    "source_url": "https://www.failory.com/cemetery/delicious",
+    "startup_name": "Delicious",
+    "startup_type": "B2C App",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 14,
+    "funding": "pre-seed",
+    "primary_failure_cause": "acquisition",
+    "secondary_causes": [
+      "poor_product"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "Failed to find a sustainable business model as it was acquired by another company",
+    "what_they_would_do_differently": "They would focus more on the core product and less on expansion.",
+    "raw_summary": "Delicious, a bookmarking website, failed to create a sustainable business after being acquired by another company.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "08c25ecd-a224-4a16-8161-e62dc9486170",
+    "source_url": "https://www.failory.com/cemetery/design-inc",
+    "startup_name": "Design Inc.",
+    "startup_type": "Marketplace",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 1,
+    "funding": "no data",
+    "primary_failure_cause": "bad business model",
+    "secondary_causes": [
+      "ran out of cash"
+    ],
+    "warning_signs_missed": [
+      "poor product"
+    ],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "Design Inc. is a marketplace for high-quality design work that shut down due to a bad business model in 2017.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "cd2109bb-a67e-4b4f-81f2-f09fd63939b1",
+    "source_url": "https://www.failory.com/cemetery/dinner-lab",
+    "startup_name": "Dinner Lab",
+    "startup_type": "Consumer Social",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": 5,
+    "funding": "seed",
+    "primary_failure_cause": "bad_business_model",
+    "secondary_causes": [
+      "no_market_need"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "They pre-sold their idea, which made it difficult to pivot once the product launched.",
+    "what_they_would_do_differently": " Validate startup ideas through pre-sales before launching a product.",
+    "raw_summary": "Dinner Lab shut down after 5 months due to not having a viable market need for their social dining experiment. They struggled with validating their business model before launching their product, leading to rapid demise.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "8de82b5d-4ba8-4734-8e2c-35f6bf2077b0",
+    "source_url": "https://www.failory.com/cemetery/digg",
+    "startup_name": "Failory",
+    "startup_type": "Other",
+    "stage_at_failure": "",
+    "team_size": 50,
+    "months_alive": 30,
+    "funding": "Series A",
+    "primary_failure_cause": "competition",
+    "secondary_causes": [
+      "wrong_pricing"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "Failory, a social media sharing platform, failed due to competition and poor pricing strategy. The company operated for nearly 30 months before shutting down.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "e90287e4-6dfa-4885-89c0-b250a6ac1a1d",
+    "source_url": "https://www.failory.com/cemetery/99dresses",
+    "startup_name": "99dresses",
+    "startup_type": "E-commerce",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 4,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "ran_out_of_cash",
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "should_have_verified_users_before_lauching",
+      "failed_to_conduct_early_mvp_version_testing"
+    ],
+    "decision_point": "they launched the business without a solid market testing framework in place",
+    "what_they_would_do_differently": "conduct thorough user research and validate their idea with potential customers before launching",
+    "raw_summary": "99dresses, an e-commerce startup that aimed to provide fashion renters with a virtual closet, shut down in 2014 due to lack of market need and poor product development. The founders now warn against rushing into product-market fit without solid validation.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "abf29d32-f22a-47be-99b4-6f88997ae433",
+    "source_url": "https://www.failory.com/cemetery/37coins",
+    "startup_name": "37Coins",
+    "startup_type": "API/Infrastructure",
+    "stage_at_failure": "growth",
+    "team_size": 1,
+    "months_alive": 12,
+    "funding": "",
+    "primary_failure_cause": "bad_timing",
+    "secondary_causes": [
+      "lack of market need",
+      "scaling too fast"
+    ],
+    "warning_signs_missed": [
+      "not validating pre-selling idea"
+    ],
+    "decision_point": "They didn't validate their idea before raising funds.",
+    "what_they_would_do_differently": "They would have validated their idea before raising funds.",
+    "raw_summary": "37Coins shut down after 12 months because they scaled too fast and couldn't find a market need for their bitcoin tech startup.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "fae57156-7ed6-4a89-ad93-04a103386fd6",
+    "source_url": "https://www.failory.com/cemetery/alikolo",
+    "startup_name": "Alikolo",
+    "startup_type": "Marketplace",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 1,
+    "funding": "unknown",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [
+      "team_issues"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "The founders of Alikolo realized too late that their pricing strategy was off the mark.",
+    "what_they_would_do_differently": "They would have tested and iterated on their pricing earlier in their journey.",
+    "raw_summary": "Alikolo failed due to wrong pricing. The company struggled to find the right balance despite their strong mission, but couldn",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "62bdf8bd-9ef4-4ce1-b0b0-118ce704224b",
+    "source_url": "https://www.failory.com/cemetery/admazely",
+    "startup_name": "Admazely",
+    "startup_type": "Other",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 2,
+    "funding": "Series A",
+    "primary_failure_cause": "scaling_too_fast",
+    "secondary_causes": [
+      "wrong_pricing",
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "monetization_failed",
+      "distribution_failed"
+    ],
+    "decision_point": "if different, they would have pivoted earlier",
+    "what_they_would_do_differently": "do not try to scale too fast with an untested product",
+    "raw_summary": "Admazely grew quickly but struggled with scaling fast and running out of cash, ultimately leading to bankruptcy.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "6ae9e92a-e559-4e26-ac84-fabcaf8e38bc",
+    "source_url": "https://www.failory.com/cemetery/appiterate",
+    "startup_name": "Appiterate",
+    "startup_type": "B2C App",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 42,
+    "funding": "Series A",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [
+      "competition"
+    ],
+    "warning_signs_missed": [
+      ""
+    ],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "Appiterate was acquired due to incorrect pricing.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "0e6799e8-3dbb-481d-b847-3431d52dc32d",
+    "source_url": "https://www.failory.com/cemetery/anki",
+    "startup_name": "Anki",
+    "startup_type": "Developer Tools",
+    "stage_at_failure": "growth",
+    "team_size": 100,
+    "months_alive": 9,
+    "funding": "Series A",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [
+      "poor_product"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "Failed to execute on pricing strategy",
+    "what_they_would_do_differently": "Focus more on product and market fit.",
+    "raw_summary": "Anki failed due to poor execution on its pricing strategy, which hindered the company's ability to scale. Despite its promising technology, Anki was unable to effectively acquire customers at a viable price point.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "9cdfc3d6-b5b8-40cf-abfc-3a777a71b0e6",
+    "source_url": "https://www.failory.com/cemetery/argyle-social",
+    "startup_name": "Argyle Social",
+    "startup_type": "B2C App",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 4,
+    "funding": "Series A",
+    "primary_failure_cause": "competition",
+    "secondary_causes": [
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "failed_to_improve"
+    ],
+    "decision_point": "they were unable to overcome the competition and improve their product before hitting profitability.",
+    "what_they_would_do_differently": "improved their product faster",
+    "raw_summary": "Argyle Social, a social media management startup, was shut down in 2014 due to intense competition. Despite initial success, the founders were unable to adapt to the market and improve their product before running out of cash.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "9e47abc6-fdc2-4628-b96a-59196d986b12",
+    "source_url": "https://www.failory.com/cemetery/aria-insights",
+    "startup_name": "Aria Insights",
+    "startup_type": "Hardware",
+    "stage_at_failure": "early-revenue",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "Series A+",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [
+      "bad_timing"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "They struggled to find a stable business model to grow the business.",
+    "what_they_would_do_differently": "They would have invested more time validating their assumptions before scaling the business.",
+    "raw_summary": "Aria Insights was an air vehicle company for search and rescue missions that struggled with its product development, leading to a failed business model. The team would invest more time in early validation to address this issue before expanding the business.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "06523131-dd45-42d5-8b35-f1cbb604b620",
+    "source_url": "https://www.failory.com/cemetery/arsdigita",
+    "startup_name": "ArsDigita",
+    "startup_type": "E-commerce",
+    "stage_at_failure": "Shut Down",
+    "team_size": null,
+    "months_alive": 5,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [
+      "running_out_of_cash",
+      "lack of experience"
+    ],
+    "warning_signs_missed": [
+      "poor_product",
+      "bad_timing"
+    ],
+    "decision_point": "they attempted to go public too early.",
+    "what_they_would_do_differently": "They would have focused more on building a scalable product and less on going public.",
+    "raw_summary": "ArsDigita was an e-commerce company that failed due to poor pricing decisions after its founders decided to take it public.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "01551afc-44ac-444e-b80b-8051a48d62b8",
+    "source_url": "https://www.failory.com/cemetery/atrium",
+    "startup_name": "Atrium",
+    "startup_type": "Enterprise Software",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "lack_of_sales_team",
+      "regulatory_problem"
+    ],
+    "warning_signs_missed": [
+      "failure_to_create_critical_partner_connections",
+      "difficulty_in_attracting_and_retaining_talent"
+    ],
+    "decision_point": "They failed to identify a clear market need before raising significant funding.",
+    "what_they_would_do_differently": "They would have created their sales team much earlier and spent more time validating the market before bringing in external capital.",
+    "raw_summary": "Atrium attempted to automate compliance tasks for law firms but ultimately failed due to the lack of a clear market need. They did not create their sales team sufficiently early, missed regulatory problems, and struggled to attract and retain talent. Their decision was heavily influenced by poor timing and no significant revenue came in despite external funding.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "4064df04-10c3-4763-adf7-341dbcc0bdf1",
+    "source_url": "https://www.failory.com/cemetery/berg",
+    "startup_name": "Berg",
+    "startup_type": "Hardware",
+    "stage_at_failure": "pre-market",
+    "team_size": 10,
+    "months_alive": 9,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "ran_out_of_cash"
+    ],
+    "warning_signs_missed": [
+      "poor_product"
+    ],
+    "decision_point": "",
+    "what_they_would_do_differently": "to validate the startup idea by pre-selling it",
+    "raw_summary": "Berg struggled with lack of market demand and shut down three years after launch.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "ebc3a16f-f5fb-4b09-a9bd-9e7715052aa9",
+    "source_url": "https://www.failory.com/cemetery/beepi",
+    "startup_name": "Beepi",
+    "startup_type": "Marketplace",
+    "stage_at_failure": "growth",
+    "team_size": 100,
+    "months_alive": 36,
+    "funding": "Series A+",
+    "primary_failure_cause": "mismanagement of funds",
+    "secondary_causes": [
+      "poor_product"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "Mismanagement of funds led to an acquisition instead of a continued growth trajectory.",
+    "what_they_would_do_differently": "Prioritize stronger product-market fit from the start.",
+    "raw_summary": "Beepi failed due to mismanagement of funds. Despite having $149M in funding, the company couldn't sustain its operations beyond 2016.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "617fa69f-db1c-4786-9022-11e4a0fa76c7",
+    "source_url": "https://www.failory.com/cemetery/bitpass",
+    "startup_name": "BitPass",
+    "startup_type": "Online payment system for digital content",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 5,
+    "funding": "Series A+",
+    "primary_failure_cause": "competition",
+    "secondary_causes": [
+      "ran out of cash",
+      "regulatory issues"
+    ],
+    "warning_signs_missed": [
+      "poor product marketability"
+    ],
+    "decision_point": "They tried to raise further funding despite warnings from their investors about a potential cash crunch.",
+    "what_they_would_do_differently": "Stay closer to the core user base and not expand too quickly into new markets.",
+    "raw_summary": "BitPass struggled with scaling its payment system for digital content, ran out of funds, and failed due to competition. The team would do things differently by being more cautious and keeping their focus on core users.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "83c9d513-f621-4b44-9c39-0f95f489b05f",
+    "source_url": "https://www.failory.com/cemetery/brisk",
+    "startup_name": "Brisk",
+    "startup_type": "B2B SaaS",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": 4,
+    "funding": "pre-seed",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "lack of focus",
+      "running out of cash"
+    ],
+    "warning_signs_missed": [
+      "could have been more focused at the start"
+    ],
+    "decision_point": "They got too distracted with their other projects and started spending all their time and energy there, completely forgetting about Brisk.",
+    "what_they_would_do_differently": "They would have made sure to prioritize their focus on Brisk from the beginning, ensuring it had full resources and support before branching out into new areas.",
+    "raw_summary": "Brisk failed due to a lack of focus. The founders didn't allocate enough resources to the startup early on, which led to its downfall.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "a8d6aa82-b370-4989-a7be-409556b2657b",
+    "source_url": "https://www.failory.com/interviews",
+    "startup_name": "Unknown",
+    "startup_type": "Fintech",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 0,
+    "funding": "",
+    "primary_failure_cause": "",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "e437eb3e-46e7-4cc5-afe6-0243c956042c",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=2",
+    "startup_name": "Unknown",
+    "startup_type": "B2B SaaS",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "There was no clear point where the founders realized their mistake.",
+    "what_they_would_do_differently": "They would have taken more time to validate their business idea.",
+    "raw_summary": "The company didn't have a viable product or market when it started out. ",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "64530f81-a28d-4c26-bd68-4b58e594b5e2",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=11",
+    "startup_name": "Unknown",
+    "startup_type": "API/Infrastructure",
+    "stage_at_failure": "early-revenue",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "Series A+",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "no_market_need",
+      "regulatory"
+    ],
+    "decision_point": "They started to grow and scale too quickly without a clear roadmap or infrastructure in place.",
+    "what_they_would_do_differently": "Focus on building a strong business model and getting the product-market fit before scaling.",
+    "raw_summary": "The company struggled with scaling too quickly, leading to wrong pricing strategy and poor product quality.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "8b891e0f-fe22-4fde-abd0-b3ac6077a284",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=3",
+    "startup_name": "Unknown",
+    "startup_type": "Fintech",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "founder_burnout",
+    "secondary_causes": [
+      "wrong_pricing",
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "scaling_too_fast",
+      "distribution_failed"
+    ],
+    "decision_point": "None specified in the provided text",
+    "what_they_would_do_differently": "Re-evaluate and manage their burnout to prevent it.",
+    "raw_summary": "A company that aimed to scale a B2B API fintech product quickly burned out from exhaustion. They could have caught the signs of burnout early on and re-evaluated their strategies beforehand.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "adfdca5d-35c4-40cc-903b-07c841b570cd",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=10",
+    "startup_name": "Unknown",
+    "startup_type": "API/Infrastructure",
+    "stage_at_failure": "growth",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "Series B+",
+    "primary_failure_cause": "scaling_too_fast",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "5b1d8448-19f7-47de-ae23-ffe30803f949",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=9",
+    "startup_name": "Unknown",
+    "startup_type": "API/Infrastructure",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "pre-seed",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "bad_business_model"
+    ],
+    "warning_signs_missed": [
+      "lack_of_experience"
+    ],
+    "decision_point": "The one specific moment or decision that might have changed everything. They thought they could scale quickly with little support from their investors.",
+    "what_they_would_do_differently": "They would focus more on the user experience and market requirements early in the process.",
+    "raw_summary": "Failory's AI-driven platform analyzed interview data from over 200 brains and founders to expose their biggest mistakes in scaling a B2B API FinTech product. The data shows a key mistake that could have prevented the startup's initial failure.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "d871c969-46d4-40b6-b01c-e5545d41d5dc",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=5",
+    "startup_name": "Unknown",
+    "startup_type": "Fintech",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "seed",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "bad_business_model",
+      "bad_management"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": ", ",
+    "what_they_would_do_differently": "would revisit the pre-sales strategy.",
+    "raw_summary": "Failed to gain traction in target market due to a flawed business model and initial failure to secure revenue through pre-selling.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "6ef19a24-410a-434b-8e81-b0116a9932e1",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=7",
+    "startup_name": "Unknown",
+    "startup_type": "API/Infrastructure",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "bad_business_model"
+    ],
+    "warning_signs_missed": [
+      "poor_product_marketing"
+    ],
+    "decision_point": "Poor product design and marketing, which failed to gain traction in the market.",
+    "what_they_would_do_differently": "Improved product roadmapping and feedback mechanisms to better validate startup idea before launching.",
+    "raw_summary": "Failed due to poor product design and marketing. Lacking a clear business model and customer acquisition strategy resulted in revenue failure. The team could have caught issues earlier if they had performed a more robust product market fit analysis or sought additional data-driven insights from analytics tools.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "dc0d6d21-dc94-46c8-9614-c8fb664d2625",
+    "source_url": "https://www.failory.com/interviews?2578a1df_page=6",
+    "startup_name": "Unknown",
+    "startup_type": "Fintech",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 12,
+    "funding": "Series A+",
+    "primary_failure_cause": "bad_business_model",
+    "secondary_causes": [
+      "running_out_of_cash",
+      "bad_management"
+    ],
+    "warning_signs_missed": [
+      "no_market_need",
+      "poor_product"
+    ],
+    "decision_point": "Scaling to a new business model.",
+    "what_they_would_do_differently": "Scaling to the correct model could have prevented the shutdown.",
+    "raw_summary": "Scaling to a new business model after 12 months in operation and $80,000 USD of funding led to the eventual demise. The startup was unable to pivot successfully due to financial constraints and poor management.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "b75d05ac-9572-4c0f-906a-183735f07cb8",
+    "source_url": "https://www.indiehackers.com/products?category=ai&commitment=side-project",
+    "startup_name": "Unknown",
+    "startup_type": "Other",
+    "stage_at_failure": "pre-product | pre-revenue | early-revenue | growth",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "unknown",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "competition",
+      "wrong_pricing"
+    ],
+    "warning_signs_missed": [
+      "poor_product"
+    ],
+    "decision_point": "shipping MVP too early felt way too early.",
+    "what_they_would_do_differently": "They would validate their ideas earlier",
+    "raw_summary": "The post mortem highlights the importance of validating startup ideas before investing them on development and sales. One of the product, 'Filleo', received a lot of traffic from Shopify, but they didn't have any feedback to improve their service.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "9a354401-c7ff-4ac2-a80b-2175d522367b",
+    "source_url": "https://www.indiehackers.com/products?revenueVerification=stripe&sorting=highest-revenue",
+    "startup_name": "Unknown",
+    "startup_type": "Other",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 12,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [],
+    "warning_signs_missed": [
+      "burning cash without clear traction"
+    ],
+    "decision_point": "Never shipping means never knowing or finding any sort of market.",
+    "what_they_would_do_differently": "Focus more on customer acquisition",
+    "raw_summary": "Started with an unproven idea and struggled to gain traction, ultimately going out of business due to lack of market demand.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "89a56fe0-8c2c-4aed-9cd2-5ca89e867e27",
+    "source_url": "https://www.indiehackers.com/products?sort=-revenue",
+    "startup_name": "E-junkie",
+    "startup_type": "E-commerce",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [
+      "no-market need"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "The founder paid little attention to best practices, leading to a failure in finding market need and pricing their product incorrectly.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "16e0873e-bfe4-48c6-9027-ae5c443f18e8",
+    "source_url": "https://www.indiehackers.com/products?sort=trending",
+    "startup_name": "Filleo",
+    "startup_type": "B2C App",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 16,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "competition",
+    "secondary_causes": [
+      "zero customers before launch",
+      "no clear plan"
+    ],
+    "warning_signs_missed": [
+      "lack of market validation",
+      "insufficient testing"
+    ],
+    "decision_point": "launched the product without a clear business model and acquired zero customers",
+    "what_they_would_do_differently": "build a clear understanding of their target market before launching",
+    "raw_summary": "Filleo launched on ProductHunt with no customers, indicating no market validation. The founder had underestimated the difficulty of acquiring initial customers.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "aa80226f-0375-4353-af38-d919b21facba",
+    "source_url": "https://www.indiehackers.com/products?commitment=side-project&funding=self",
+    "startup_name": "Filleo",
+    "startup_type": "B2C App",
+    "stage_at_failure": "early-revenue",
+    "team_size": null,
+    "months_alive": 17,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [
+      "wrong_pricing",
+      "churn"
+    ],
+    "warning_signs_missed": [
+      "losing users without knowing why"
+    ],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "Built an 'Agentic AI' to kill the 15-minute Shopify listing grind, which didn't gain traction.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "46b3e5a3-8ebe-46ef-9bf4-9c65744db0b8",
+    "source_url": "https://www.indiehackers.com/products?category=ai&funding=self",
+    "startup_name": "Filleo",
+    "startup_type": "B2C App",
+    "stage_at_failure": "pre-revenue",
+    "team_size": 17,
+    "months_alive": null,
+    "funding": "self-funded",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "competition",
+      "wrong_pricing"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "The creator overestimated the market size for this type of product",
+    "what_they_would_do_differently": "Overestimate the market size and build a more basic version",
+    "raw_summary": "An agentic AI was created to simplify the process of selling products on Shopify, but it failed due to underestimating the complexity of the existing market.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "98931e52-87ef-4bb7-a9dd-565196141197",
+    "source_url": "https://www.indiehackers.com/products?category=ai",
+    "startup_name": "Filleo",
+    "startup_type": "B2C App",
+    "stage_at_failure": "early-revenue",
+    "team_size": null,
+    "months_alive": 10,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [
+      "wrong_pricing",
+      "competition"
+    ],
+    "warning_signs_missed": [
+      "user engagement was lower than expected",
+      "customer acquisition costs were higher than anticipated"
+    ],
+    "decision_point": "when the founder realized that their AI product wasn't performing as well as they thought it would, and this led to a rapid decline in user retention.",
+    "what_they_would_do_differently": "founder says they would have focused more on market validation.",
+    "raw_summary": "Filleo had an AI-powered Shopify listing agent but it failed due to poor user performance and high customer acquisition costs.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "055047ad-24f2-4997-91e6-7194258bf6c4",
+    "source_url": "https://www.indiehackers.com/products?category=ai&sort=revenue",
+    "startup_name": "TranslatePress",
+    "startup_type": "B2C App",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": 0,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [],
+    "warning_signs_missed": [
+      "none mentioned"
+    ],
+    "decision_point": "believing in the product was enough to keep going",
+    "what_they_would_do_differently": "believe in the problem and market",
+    "raw_summary": "Got some initial traction, but couldn't sustain it",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "8fae5fd7-d32b-4406-8696-1b57a124d5ab",
+    "source_url": "https://www.indiehackers.com/products?category=sales",
+    "startup_name": "Unspecified",
+    "startup_type": "",
+    "stage_at_failure": "",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "",
+    "primary_failure_cause": "",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "15aa3ecb-bab4-41d0-9e18-ee23261d1ae2",
+    "source_url": "https://www.indiehackers.com/products?category=jobs-hiring&revenueVerification=stripe&sorting=highest-revenue",
+    "startup_name": "Filleo",
+    "startup_type": "B2C App",
+    "stage_at_failure": "early-revenue",
+    "team_size": null,
+    "months_alive": 10,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [
+      "no_market_need"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "I built an agentic AI to kill the 15-minute Shopify listing grind",
+    "what_they_would_do_differently": "Not to build a tool that was not tested and validated properly prior to launch",
+    "raw_summary": "It was not a realistic solution for users like 90 % of them",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "4dd8a881-b558-40f6-8d77-513d10ec69ff",
+    "source_url": "https://www.indiehackers.com/products",
+    "startup_name": "Unknown",
+    "startup_type": "Other",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "other",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "d501a3c7-3529-4426-b583-ee3d5bb4d96c",
+    "source_url": "https://www.indiehackers.com/products?funding=self&revenueVerification=stripe&sorting=highest-revenue",
+    "startup_name": "Unknown",
+    "startup_type": "Other",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": 5,
+    "funding": "",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "wrong_pricing",
+      "poor_product"
+    ],
+    "warning_signs_missed": [
+      "guessing why user MMR is dropping"
+    ],
+    "decision_point": "Building a product without validation or market traction was too easy",
+    "what_they_would_do_differently": "Validate the idea and build a minimum viable product before launching",
+    "raw_summary": "The lack of market traction and validation made it difficult to gather feedback from users.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "1d29f283-abc7-4676-8cc1-21593286b30a",
+    "source_url": "https://news.ycombinator.com/item?id=35997874",
+    "startup_name": "Unknown",
+    "startup_type": "Other",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": 0,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "",
+    "what_they_would_do_differently": "",
+    "raw_summary": "",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "ea17a57e-778d-4523-aec2-cea1ba7daa74",
+    "source_url": "https://news.ycombinator.com/item?id=30945724",
+    "startup_name": "Unknown",
+    "startup_type": "B2C App",
+    "stage_at_failure": "pre-revenue",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "bootstrapped",
+    "primary_failure_cause": "no_market_need",
+    "secondary_causes": [
+      "ran_out_of_cash"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "None given",
+    "what_they_would_do_differently": "None given",
+    "raw_summary": "Thanks! One of the reasons I started this project was to allow me the freedom that Agile and work projects usually kill.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "0173ce52-2a83-4bb9-83fd-6e934f2350e4",
+    "source_url": "https://news.ycombinator.com/item?id=27384680",
+    "startup_name": "NFT sales plummet nearly 90% from their peak as collectibles market cools",
+    "startup_type": "Consumer Social",
+    "stage_at_failure": "",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "",
+    "primary_failure_cause": "wrong_pricing",
+    "secondary_causes": [],
+    "warning_signs_missed": [],
+    "decision_point": "Almost like they were a pointless fad.",
+    "what_they_would_do_differently": "Which they are.",
+    "raw_summary": "NFT sales plummet nearly 90% from their peak as the collectibles market cools.",
+    "is_valid_postmortem": true
+  },
+  {
+    "id": "97f8c5d0-333c-4914-9003-fbcc14f1d8ea",
+    "source_url": "https://medium.com/@carolynwalked/the-demise-of-theranos-8f9d9e2cdf0e",
+    "startup_name": "Unknown",
+    "startup_type": "Other",
+    "stage_at_failure": "pre-product",
+    "team_size": null,
+    "months_alive": null,
+    "funding": "unknown",
+    "primary_failure_cause": "poor_product",
+    "secondary_causes": [
+      "wrong_pricing"
+    ],
+    "warning_signs_missed": [],
+    "decision_point": "The page not found error was a clear indication that the content wasn't prepared to handle it.",
+    "what_they_would_do_differently": "Prepare product for unexpected requests from users.",
+    "raw_summary": "Medium published a non-existent article about Theranos, leading to an unusual 404 error on their site",
+    "is_valid_postmortem": true
+  }
+]
