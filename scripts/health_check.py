@@ -19,7 +19,7 @@ console = Console()
 
 async def check_openrouter():
     try:
-        from agents.llm import call_llm, PRIMARY_MODEL, FALLBACK_MODEL
+        from agents.llm import call_llm
         reply = await call_llm("Say OK", max_tokens=5)
         return True, f"Connected — replied: {reply.strip()[:30]}"
     except Exception as e:

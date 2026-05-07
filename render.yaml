@@ -7,5 +7,3 @@ services:
     envVars:
       - key: LLM_PROVIDER
         value: openrouter
-      - key: OPENROUTER_MODEL
-        value: meta-llama/llama-3.3-70b-instruct:free

@@ -1,144 +1,154 @@
 """
-agents/llm.py — LLM provider abstraction
-
-Waterfall when LLM_PROVIDER=ollama:
-  1. Pre-check: httpx ping to localhost:11434 (2s timeout)
-     → if unreachable, immediately skip to OpenRouter
-  2. Ollama local (10s timeout)
-  3. OpenRouter OR_PRIMARY — falls back on 429
-  4. OpenRouter OR_FALLBACK
-
-When LLM_PROVIDER=openrouter: skips Ollama entirely.
-
-Set LLM_PROVIDER=ollama in .env for local dev.
-Set LLM_PROVIDER=openrouter on Render.
+llm.py — production LLM client with auto-discovery of working free models
+Never hardcodes model names. Fetches live free model list from OpenRouter.
+Falls back to Ollama for local dev.
 """
 
-import asyncio
 import os
 import re
 import logging
 import httpx
-from openai import AsyncOpenAI, RateLimitError, APIConnectionError, APITimeoutError
+from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 logger = logging.getLogger(__name__)
 
-PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()
+# Preferred models tried first when ranking the live free list
+PREFERRED_MODEL_KEYWORDS = [
+    "llama-3.3-70b",
+    "gemma-4-27b",
+    "gemma-4-31b",
+    "qwen3",
+    "nemotron-3-super",
+    "tencent/hy3",
+    "minimax",
+]
 
-# Ollama
-OLLAMA_MODEL    = os.getenv("OLLAMA_MODEL", "qwen2.5:14b")
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_TIMEOUT  = 10  # seconds — short so it fails fast and falls back
+_working_model_cache: str | None = None
 
-# OpenRouter free models — in waterfall order
-OR_PRIMARY   = os.getenv("OPENROUTER_MODEL", "nvidia/nemotron-3-super:free")
-OR_FALLBACK1 = "tencent/hy3-preview:free"
-OR_FALLBACK2 = "meta-llama/llama-3.3-70b-instruct:free"
 
-_ollama_client:     AsyncOpenAI | None = None
-_openrouter_client: AsyncOpenAI | None = None
+def _strip_thinking(text: str) -> str:
+    """Remove <think>...</think> blocks emitted by reasoning models (qwen3 etc.)."""
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+
+
+async def _get_working_free_model() -> str:
+    """Fetch the live free model list from OpenRouter and return the best one."""
+    global _working_model_cache
+    if _working_model_cache:
+        return _working_model_cache
+
+    api_key = os.getenv("OPENROUTER_API_KEY", "")
+    SKIP = {"ocr", "audio", "vision", "embed", "rerank", "speech", "lyria", "owl", "cobuddy"}
+
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(
+                "https://openrouter.ai/api/v1/models",
+                headers={"Authorization": f"Bearer {api_key}"},
+            )
+            models = resp.json().get("data", [])
+
+        free_models = [
+            m["id"] for m in models
+            if (m.get("pricing", {}).get("prompt") in ("0", 0))
+            and not any(skip in m["id"] for skip in SKIP)
+            and ("instruct" in m["id"] or any(k in m["id"] for k in PREFERRED_MODEL_KEYWORDS))
+        ]
+
+        # Prefer known-good models first, then append the rest
+        ordered: list[str] = []
+        for keyword in PREFERRED_MODEL_KEYWORDS:
+            for m in free_models:
+                if keyword in m and m not in ordered:
+                    ordered.append(m)
+        for m in free_models:
+            if m not in ordered:
+                ordered.append(m)
+
+        if ordered:
+            _working_model_cache = ordered[0]
+            logger.info(f"Auto-selected free model: {_working_model_cache}")
+            return _working_model_cache
+
+    except Exception as e:
+        logger.warning(f"Could not fetch model list: {e}")
+
+    return "meta-llama/llama-3.3-70b-instruct:free"
 
 
 def _ollama_reachable() -> bool:
-    """Fast synchronous ping to check if Ollama is running locally."""
     try:
-        httpx.get(OLLAMA_BASE_URL, timeout=2)
+        httpx.get("http://localhost:11434", timeout=2)
         return True
     except Exception:
         return False
 
 
-def _get_ollama() -> AsyncOpenAI:
-    global _ollama_client
-    if _ollama_client is None:
-        _ollama_client = AsyncOpenAI(
-            base_url=f"{OLLAMA_BASE_URL}/v1",
-            api_key="ollama",
-            timeout=OLLAMA_TIMEOUT,
-        )
-    return _ollama_client
-
-
-def _get_openrouter() -> AsyncOpenAI:
-    global _openrouter_client
-    if _openrouter_client is None:
-        _openrouter_client = AsyncOpenAI(
-            base_url="https://openrouter.ai/api/v1",
-            api_key=os.getenv("OPENROUTER_API_KEY"),
-        )
-    return _openrouter_client
-
-
-def _build_messages(prompt: str, system: str) -> list[dict]:
-    msgs = []
-    if system:
-        msgs.append({"role": "system", "content": system})
-    msgs.append({"role": "user", "content": prompt})
-    return msgs
-
-
-def _strip_thinking(text: str) -> str:
-    """Remove <think>...</think> blocks emitted by reasoning models."""
-    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
-
-
-async def _call(
-    client: AsyncOpenAI, model: str, messages: list[dict],
-    max_tokens: int, json_mode: bool = False
-) -> str:
-    kwargs: dict = dict(model=model, max_tokens=max_tokens, messages=messages)
-    if json_mode:
-        kwargs["response_format"] = {"type": "json_object"}
-    response = await client.chat.completions.create(**kwargs)
-    return _strip_thinking(response.choices[0].message.content or "")
-
-
-async def _call_openrouter(
-    messages: list[dict], max_tokens: int, json_mode: bool = False
-) -> str:
-    """Try OR_PRIMARY → OR_FALLBACK1 → OR_FALLBACK2 on 429."""
-    client = _get_openrouter()
-    for model in (OR_PRIMARY, OR_FALLBACK1, OR_FALLBACK2):
-        try:
-            logger.info(f"LLM provider: openrouter ({model})")
-            text = await _call(client, model, messages, max_tokens, json_mode)
-            logger.debug(f"OpenRouter ({model}): {len(text)} chars")
-            return text
-        except RateLimitError:
-            logger.warning(f"429 on {model} — trying next fallback")
-    raise RuntimeError("All OpenRouter models rate-limited")
-
-
 async def call_llm(
-    prompt: str, system: str = "", max_tokens: int = 1000, json_mode: bool = False
+    prompt: str,
+    system: str = "",
+    max_tokens: int = 2000,
+    json_mode: bool = False,
 ) -> str:
     """
-    Route to the correct LLM provider based on LLM_PROVIDER env var.
+    Call the configured LLM and return the response text.
 
-    LLM_PROVIDER=openrouter → OpenRouter directly, no Ollama attempt.
-    LLM_PROVIDER=ollama     → ping localhost:11434 first; if unreachable,
-                              immediately fall back to OpenRouter.
+    LLM_PROVIDER=ollama      → Ollama (local, fast); falls back to OpenRouter if unreachable.
+    LLM_PROVIDER=openrouter  → OpenRouter with auto-discovered free model; retries on failure.
+
+    Args:
+        prompt: User message text
+        system: Optional system prompt
+        max_tokens: Max tokens to generate
+        json_mode: Ignored — included for backward compatibility
     """
-    messages = _build_messages(prompt, system)
+    provider = os.getenv("LLM_PROVIDER", "openrouter")
 
-    if PROVIDER == "openrouter":
-        return await _call_openrouter(messages, max_tokens, json_mode)
+    messages: list[dict] = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
 
-    # PROVIDER == "ollama": pre-check before attempting any call
-    if not _ollama_reachable():
-        logger.warning("Ollama not reachable at %s — using OpenRouter immediately", OLLAMA_BASE_URL)
-        return await _call_openrouter(messages, max_tokens, json_mode)
+    # Local dev — Ollama
+    if provider == "ollama" and _ollama_reachable():
+        model = os.getenv("OLLAMA_MODEL", "qwen2.5:14b")
+        client = AsyncOpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+        logger.info(f"Using Ollama: {model}")
+        try:
+            response = await client.chat.completions.create(
+                model=model, messages=messages, max_tokens=max_tokens
+            )
+            return _strip_thinking(response.choices[0].message.content or "")
+        except Exception as e:
+            logger.warning(f"Ollama failed ({e}) — falling back to OpenRouter")
+
+    # Production — auto-discover working free model
+    model = await _get_working_free_model()
+    client = AsyncOpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=os.getenv("OPENROUTER_API_KEY", ""),
+    )
+    logger.info(f"Using OpenRouter: {model}")
 
     try:
-        logger.info(f"LLM provider: ollama ({OLLAMA_MODEL})")
-        text = await _call(_get_ollama(), OLLAMA_MODEL, messages, max_tokens, json_mode)
-        logger.debug(f"Ollama ({OLLAMA_MODEL}): {len(text)} chars")
-        return text
-    except (APIConnectionError, APITimeoutError, asyncio.TimeoutError) as e:
-        logger.warning(f"Ollama unavailable ({type(e).__name__}) — falling back to OpenRouter")
-    except Exception as e:
-        logger.warning(f"Ollama error ({e}) — falling back to OpenRouter")
+        response = await client.chat.completions.create(
+            model=model, messages=messages, max_tokens=max_tokens
+        )
+        return _strip_thinking(response.choices[0].message.content or "")
 
-    return await _call_openrouter(messages, max_tokens, json_mode)
+    except Exception as e:
+        logger.error(f"LLM error with {model}: {e}")
+        global _working_model_cache
+        _working_model_cache = None
+
+        # One retry with a freshly discovered model
+        new_model = await _get_working_free_model()
+        if new_model != model:
+            logger.info(f"Retrying with: {new_model}")
+            response = await client.chat.completions.create(
+                model=new_model, messages=messages, max_tokens=max_tokens
+            )
+            return _strip_thinking(response.choices[0].message.content or "")
+        raise
