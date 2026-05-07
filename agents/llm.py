@@ -1,12 +1,15 @@
 """
 agents/llm.py — LLM provider abstraction
 
-Waterfall (tried in order):
-  1. Ollama local (llama3.2) — unlimited, 10s timeout
-  2. OpenRouter meta-llama/llama-3.3-70b-instruct:free — on Ollama failure
-  3. OpenRouter google/gemma-3-12b-it:free            — on 429 from fallback 1
+Waterfall when LLM_PROVIDER=ollama:
+  1. Ollama local (10s timeout) — falls back on any connection error
+  2. OpenRouter OR_PRIMARY — falls back on 429
+  3. OpenRouter OR_FALLBACK
 
-Set LLM_PROVIDER=ollama in .env (default).
+When LLM_PROVIDER=openrouter: skips Ollama entirely.
+
+Set LLM_PROVIDER=ollama in .env for local dev.
+Set LLM_PROVIDER=openrouter on Render.
 """
 
 import asyncio
@@ -24,10 +27,10 @@ PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()
 # Ollama
 OLLAMA_MODEL    = os.getenv("OLLAMA_MODEL", "qwen2.5:14b")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_TIMEOUT  = 90  # seconds — synthesis prompts are long
+OLLAMA_TIMEOUT  = 10  # seconds — short so Render fails fast and falls back
 
 # OpenRouter
-OR_PRIMARY  = "meta-llama/llama-3.3-70b-instruct:free"
+OR_PRIMARY  = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct:free")
 OR_FALLBACK = "google/gemma-2-9b-it:free"
 
 _ollama_client:     AsyncOpenAI | None = None
@@ -64,7 +67,7 @@ def _build_messages(prompt: str, system: str) -> list[dict]:
 
 
 def _strip_thinking(text: str) -> str:
-    """Remove <think>...</think> blocks emitted by qwen3 and similar reasoning models."""
+    """Remove <think>...</think> blocks emitted by reasoning models."""
     return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
 
 
@@ -85,11 +88,13 @@ async def _call_openrouter(
     """Try OR_PRIMARY, fall back to OR_FALLBACK on 429."""
     client = _get_openrouter()
     try:
+        logger.info(f"LLM provider: openrouter ({OR_PRIMARY})")
         text = await _call(client, OR_PRIMARY, messages, max_tokens, json_mode)
         logger.debug(f"OpenRouter primary ({OR_PRIMARY}): {len(text)} chars")
         return text
     except RateLimitError:
         logger.warning(f"429 on {OR_PRIMARY} — trying {OR_FALLBACK}")
+        logger.info(f"LLM provider: openrouter fallback ({OR_FALLBACK})")
         text = await _call(client, OR_FALLBACK, messages, max_tokens, json_mode)
         logger.debug(f"OpenRouter fallback ({OR_FALLBACK}): {len(text)} chars")
         return text
@@ -99,21 +104,19 @@ async def call_llm(
     prompt: str, system: str = "", max_tokens: int = 1000, json_mode: bool = False
 ) -> str:
     """
-    Waterfall: Ollama (10s timeout) → OpenRouter primary → OpenRouter fallback.
+    Route to the correct LLM provider based on LLM_PROVIDER env var.
 
-    Args:
-        prompt: User message
-        system: Optional system prompt
-        max_tokens: Max tokens to generate
-        json_mode: Request JSON output
-
-    Returns:
-        Response text, stripped of whitespace
+    LLM_PROVIDER=ollama  → try Ollama (10s timeout), fall back to OpenRouter
+    LLM_PROVIDER=openrouter → OpenRouter directly, no Ollama attempt
     """
     messages = _build_messages(prompt, system)
 
-    # Step 1 — Ollama (local, unlimited)
+    if PROVIDER == "openrouter":
+        return await _call_openrouter(messages, max_tokens, json_mode)
+
+    # PROVIDER == "ollama": try local first, fall back on any failure
     try:
+        logger.info(f"LLM provider: ollama ({OLLAMA_MODEL})")
         text = await _call(_get_ollama(), OLLAMA_MODEL, messages, max_tokens, json_mode)
         logger.debug(f"Ollama ({OLLAMA_MODEL}): {len(text)} chars")
         return text
@@ -122,5 +125,4 @@ async def call_llm(
     except Exception as e:
         logger.warning(f"Ollama error ({e}) — falling back to OpenRouter")
 
-    # Step 2+3 — OpenRouter
     return await _call_openrouter(messages, max_tokens, json_mode)
