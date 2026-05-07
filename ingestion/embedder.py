@@ -1,18 +1,18 @@
 """
 embedder.py — embeds PostMortem objects and stores them in Qdrant
-Uses sentence-transformers for local embeddings (free, no API cost)
+Uses Jina AI embeddings API (free, no local model install needed)
 """
 
 import os
 import logging
 import json
+import httpx
 from typing import Optional
 from qdrant_client import QdrantClient
 from qdrant_client.models import (
     Distance, VectorParams, PointStruct, Filter, FieldCondition, MatchValue,
     PayloadSchemaType,
 )
-from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from .extractor import PostMortem
 
@@ -20,12 +20,18 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 COLLECTION_NAME = os.getenv("QDRANT_COLLECTION", "postmortems")
-VECTOR_DIM = 384  # all-MiniLM-L6-v2 output dimension
+VECTOR_DIM = 768  # jina-embeddings-v2-base-en output dimension
 
-# Load embedding model once at module level
-logger.info("Loading embedding model...")
-embed_model = SentenceTransformer("all-MiniLM-L6-v2")
-logger.info("Embedding model loaded.")
+
+async def embed_text(text: str) -> list[float]:
+    async with httpx.AsyncClient() as client:
+        r = await client.post(
+            "https://api.jina.ai/v1/embeddings",
+            headers={"Content-Type": "application/json"},
+            json={"input": [text], "model": "jina-embeddings-v2-base-en"},
+            timeout=30
+        )
+        return r.json()["data"][0]["embedding"]
 
 
 def get_qdrant_client() -> QdrantClient:
@@ -71,13 +77,7 @@ def make_embedding_text(postmortem: PostMortem) -> str:
     return " ".join([p for p in parts if p])
 
 
-def embed_text(text: str) -> list[float]:
-    """Embed a single text string."""
-    vector = embed_model.encode(text, normalize_embeddings=True)
-    return vector.tolist()
-
-
-def upsert_postmortems(postmortems: list[PostMortem], client: Optional[QdrantClient] = None):
+async def upsert_postmortems(postmortems: list[PostMortem], client: Optional[QdrantClient] = None):
     """Upsert a list of PostMortem objects into Qdrant."""
     if client is None:
         client = get_qdrant_client()
@@ -87,7 +87,7 @@ def upsert_postmortems(postmortems: list[PostMortem], client: Optional[QdrantCli
     points = []
     for pm in postmortems:
         text = make_embedding_text(pm)
-        vector = embed_text(text)
+        vector = await embed_text(text)
 
         payload = pm.model_dump()
         # Remove fields that bloat payload
@@ -114,7 +114,7 @@ def upsert_postmortems(postmortems: list[PostMortem], client: Optional[QdrantCli
     logger.info(f"✓ Total postmortems in Qdrant: {total}")
 
 
-def search_similar(
+async def search_similar(
     query_text: str,
     top_k: int = 15,
     client: Optional[QdrantClient] = None,
@@ -124,7 +124,7 @@ def search_similar(
     if client is None:
         client = get_qdrant_client()
 
-    query_vector = embed_text(query_text)
+    query_vector = await embed_text(query_text)
 
     search_filter = None
     if startup_type_filter:
