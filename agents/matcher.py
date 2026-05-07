@@ -40,7 +40,7 @@ async def retrieve_similar_failures(startup_profile: dict, top_k: int = 15) -> l
     client = get_qdrant_client()
 
     # First pass: type-filtered search for better precision
-    results = search_similar(
+    results = await search_similar(
         query_text=query_text,
         top_k=top_k,
         client=client,
@@ -50,7 +50,7 @@ async def retrieve_similar_failures(startup_profile: dict, top_k: int = 15) -> l
     # Second pass: unfiltered search if we don't have enough
     if len(results) < 8:
         logger.info(f"Only {len(results)} type-filtered results, doing broad search...")
-        broad_results = search_similar(
+        broad_results = await search_similar(
             query_text=query_text,
             top_k=top_k,
             client=client,
