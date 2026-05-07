@@ -2,9 +2,11 @@
 agents/llm.py — LLM provider abstraction
 
 Waterfall when LLM_PROVIDER=ollama:
-  1. Ollama local (10s timeout) — falls back on any connection error
-  2. OpenRouter OR_PRIMARY — falls back on 429
-  3. OpenRouter OR_FALLBACK
+  1. Pre-check: httpx ping to localhost:11434 (2s timeout)
+     → if unreachable, immediately skip to OpenRouter
+  2. Ollama local (10s timeout)
+  3. OpenRouter OR_PRIMARY — falls back on 429
+  4. OpenRouter OR_FALLBACK
 
 When LLM_PROVIDER=openrouter: skips Ollama entirely.
 
@@ -16,6 +18,7 @@ import asyncio
 import os
 import re
 import logging
+import httpx
 from openai import AsyncOpenAI, RateLimitError, APIConnectionError, APITimeoutError
 from dotenv import load_dotenv
 
@@ -27,14 +30,23 @@ PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()
 # Ollama
 OLLAMA_MODEL    = os.getenv("OLLAMA_MODEL", "qwen2.5:14b")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_TIMEOUT  = 10  # seconds — short so Render fails fast and falls back
+OLLAMA_TIMEOUT  = 10  # seconds — short so it fails fast and falls back
 
-# OpenRouter
+# OpenRouter — use a model that actually exists on the free tier
 OR_PRIMARY  = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct:free")
 OR_FALLBACK = "google/gemma-2-9b-it:free"
 
 _ollama_client:     AsyncOpenAI | None = None
 _openrouter_client: AsyncOpenAI | None = None
+
+
+def _ollama_reachable() -> bool:
+    """Fast synchronous ping to check if Ollama is running locally."""
+    try:
+        httpx.get(OLLAMA_BASE_URL, timeout=2)
+        return True
+    except Exception:
+        return False
 
 
 def _get_ollama() -> AsyncOpenAI:
@@ -106,15 +118,20 @@ async def call_llm(
     """
     Route to the correct LLM provider based on LLM_PROVIDER env var.
 
-    LLM_PROVIDER=ollama  → try Ollama (10s timeout), fall back to OpenRouter
-    LLM_PROVIDER=openrouter → OpenRouter directly, no Ollama attempt
+    LLM_PROVIDER=openrouter → OpenRouter directly, no Ollama attempt.
+    LLM_PROVIDER=ollama     → ping localhost:11434 first; if unreachable,
+                              immediately fall back to OpenRouter.
     """
     messages = _build_messages(prompt, system)
 
     if PROVIDER == "openrouter":
         return await _call_openrouter(messages, max_tokens, json_mode)
 
-    # PROVIDER == "ollama": try local first, fall back on any failure
+    # PROVIDER == "ollama": pre-check before attempting any call
+    if not _ollama_reachable():
+        logger.warning("Ollama not reachable at %s — using OpenRouter immediately", OLLAMA_BASE_URL)
+        return await _call_openrouter(messages, max_tokens, json_mode)
+
     try:
         logger.info(f"LLM provider: ollama ({OLLAMA_MODEL})")
         text = await _call(_get_ollama(), OLLAMA_MODEL, messages, max_tokens, json_mode)

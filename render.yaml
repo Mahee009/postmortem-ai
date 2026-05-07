@@ -8,4 +8,4 @@ services:
       - key: LLM_PROVIDER
         value: openrouter
       - key: OPENROUTER_MODEL
-        value: mistralai/mixtral-8x7b-instruct:free
+        value: meta-llama/llama-3.3-70b-instruct:free
