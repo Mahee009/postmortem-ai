@@ -61,7 +61,7 @@ async def run_ingestion(skip_scraping: bool = False):
     # Step 3: Embed and store
     logger.info("\n[3/3] EMBEDDING and storing in Qdrant...")
     client = get_qdrant_client()
-    await upsert_postmortems(postmortems, client=client)
+    upsert_postmortems(postmortems, client=client)
 
     # Final stats
     stats = get_collection_stats(client)

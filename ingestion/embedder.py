@@ -1,13 +1,12 @@
 """
 embedder.py — embeds PostMortem objects and stores them in Qdrant
-Uses Jina AI embeddings API (free, no local model install needed)
+Uses sentence-transformers for local embeddings (no API key, works on Render)
 """
 
 import os
 import logging
-import json
-import httpx
 from typing import Optional
+from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from qdrant_client.models import (
     Distance, VectorParams, PointStruct, Filter, FieldCondition, MatchValue,
@@ -20,18 +19,20 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 COLLECTION_NAME = os.getenv("QDRANT_COLLECTION", "postmortems")
-VECTOR_DIM = 768  # jina-embeddings-v2-base-en output dimension
+VECTOR_DIM = 384  # all-MiniLM-L6-v2 output dimension
+
+_model = None
 
 
-async def embed_text(text: str) -> list[float]:
-    async with httpx.AsyncClient() as client:
-        r = await client.post(
-            "https://api.jina.ai/v1/embeddings",
-            headers={"Content-Type": "application/json"},
-            json={"input": [text], "model": "jina-embeddings-v2-base-en"},
-            timeout=30
-        )
-        return r.json()["data"][0]["embedding"]
+def get_embed_model() -> SentenceTransformer:
+    global _model
+    if _model is None:
+        _model = SentenceTransformer("all-MiniLM-L6-v2")
+    return _model
+
+
+def embed_text(text: str) -> list[float]:
+    return get_embed_model().encode(text, normalize_embeddings=True).tolist()
 
 
 def get_qdrant_client() -> QdrantClient:
@@ -43,8 +44,19 @@ def get_qdrant_client() -> QdrantClient:
 
 
 def ensure_collection(client: QdrantClient):
-    """Create collection if it doesn't exist, and ensure payload indexes exist."""
+    """Create collection if it doesn't exist. If vector dim changed, delete and recreate."""
     existing = [c.name for c in client.get_collections().collections]
+
+    if COLLECTION_NAME in existing:
+        existing_dim = client.get_collection(COLLECTION_NAME).config.params.vectors.size
+        if existing_dim != VECTOR_DIM:
+            logger.warning(
+                f"Collection dim={existing_dim} != required dim={VECTOR_DIM}. "
+                "Dropping and recreating — re-ingestion required."
+            )
+            client.delete_collection(COLLECTION_NAME)
+            existing = []
+
     if COLLECTION_NAME not in existing:
         client.create_collection(
             collection_name=COLLECTION_NAME,
@@ -54,8 +66,6 @@ def ensure_collection(client: QdrantClient):
     else:
         logger.info(f"Collection exists: {COLLECTION_NAME}")
 
-    # Qdrant requires payload indexes before filtering on a field.
-    # create_payload_index is idempotent — safe to call on existing collections.
     client.create_payload_index(
         collection_name=COLLECTION_NAME,
         field_name="startup_type",
@@ -65,7 +75,6 @@ def ensure_collection(client: QdrantClient):
 
 
 def make_embedding_text(postmortem: PostMortem) -> str:
-    """Build the text we embed — optimized for semantic similarity search."""
     parts = [
         postmortem.startup_type,
         postmortem.stage_at_failure,
@@ -77,7 +86,7 @@ def make_embedding_text(postmortem: PostMortem) -> str:
     return " ".join([p for p in parts if p])
 
 
-async def upsert_postmortems(postmortems: list[PostMortem], client: Optional[QdrantClient] = None):
+def upsert_postmortems(postmortems: list[PostMortem], client: Optional[QdrantClient] = None):
     """Upsert a list of PostMortem objects into Qdrant."""
     if client is None:
         client = get_qdrant_client()
@@ -87,10 +96,9 @@ async def upsert_postmortems(postmortems: list[PostMortem], client: Optional[Qdr
     points = []
     for pm in postmortems:
         text = make_embedding_text(pm)
-        vector = await embed_text(text)
+        vector = embed_text(text)
 
         payload = pm.model_dump()
-        # Remove fields that bloat payload
         payload.pop("id", None)
 
         points.append(PointStruct(
@@ -103,7 +111,6 @@ async def upsert_postmortems(postmortems: list[PostMortem], client: Optional[Qdr
         logger.warning("No points to upsert")
         return
 
-    # Upsert in batches of 100
     batch_size = 100
     for i in range(0, len(points), batch_size):
         batch = points[i:i + batch_size]
@@ -114,7 +121,7 @@ async def upsert_postmortems(postmortems: list[PostMortem], client: Optional[Qdr
     logger.info(f"✓ Total postmortems in Qdrant: {total}")
 
 
-async def search_similar(
+def search_similar(
     query_text: str,
     top_k: int = 15,
     client: Optional[QdrantClient] = None,
@@ -124,7 +131,7 @@ async def search_similar(
     if client is None:
         client = get_qdrant_client()
 
-    query_vector = await embed_text(query_text)
+    query_vector = embed_text(query_text)
 
     search_filter = None
     if startup_type_filter:
