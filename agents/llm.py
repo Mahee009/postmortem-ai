@@ -32,9 +32,10 @@ OLLAMA_MODEL    = os.getenv("OLLAMA_MODEL", "qwen2.5:14b")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_TIMEOUT  = 10  # seconds — short so it fails fast and falls back
 
-# OpenRouter — use a model that actually exists on the free tier
-OR_PRIMARY  = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct:free")
-OR_FALLBACK = "google/gemma-2-9b-it:free"
+# OpenRouter free models — in waterfall order
+OR_PRIMARY   = os.getenv("OPENROUTER_MODEL", "nvidia/nemotron-3-super:free")
+OR_FALLBACK1 = "tencent/hy3-preview:free"
+OR_FALLBACK2 = "meta-llama/llama-3.3-70b-instruct:free"
 
 _ollama_client:     AsyncOpenAI | None = None
 _openrouter_client: AsyncOpenAI | None = None
@@ -97,19 +98,17 @@ async def _call(
 async def _call_openrouter(
     messages: list[dict], max_tokens: int, json_mode: bool = False
 ) -> str:
-    """Try OR_PRIMARY, fall back to OR_FALLBACK on 429."""
+    """Try OR_PRIMARY → OR_FALLBACK1 → OR_FALLBACK2 on 429."""
     client = _get_openrouter()
-    try:
-        logger.info(f"LLM provider: openrouter ({OR_PRIMARY})")
-        text = await _call(client, OR_PRIMARY, messages, max_tokens, json_mode)
-        logger.debug(f"OpenRouter primary ({OR_PRIMARY}): {len(text)} chars")
-        return text
-    except RateLimitError:
-        logger.warning(f"429 on {OR_PRIMARY} — trying {OR_FALLBACK}")
-        logger.info(f"LLM provider: openrouter fallback ({OR_FALLBACK})")
-        text = await _call(client, OR_FALLBACK, messages, max_tokens, json_mode)
-        logger.debug(f"OpenRouter fallback ({OR_FALLBACK}): {len(text)} chars")
-        return text
+    for model in (OR_PRIMARY, OR_FALLBACK1, OR_FALLBACK2):
+        try:
+            logger.info(f"LLM provider: openrouter ({model})")
+            text = await _call(client, model, messages, max_tokens, json_mode)
+            logger.debug(f"OpenRouter ({model}): {len(text)} chars")
+            return text
+        except RateLimitError:
+            logger.warning(f"429 on {model} — trying next fallback")
+    raise RuntimeError("All OpenRouter models rate-limited")
 
 
 async def call_llm(
