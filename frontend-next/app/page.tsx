@@ -152,7 +152,7 @@ export default function Page() {
     if (!description.trim() || loading) return;
     setLoading(true); setError(null); setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/analyze", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description }),
