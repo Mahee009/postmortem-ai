@@ -1,12 +1,13 @@
 """
 embedder.py — embeds PostMortem objects and stores them in Qdrant
-Uses sentence-transformers for local embeddings (no API key, works on Render)
+Uses fastembed (lightweight ONNX runtime) — same all-MiniLM-L6-v2 model
+as before, but ~5x less memory. Fits in Render's 512MB free tier.
 """
 
 import os
 import logging
 from typing import Optional
-from sentence_transformers import SentenceTransformer
+from fastembed import TextEmbedding
 from qdrant_client import QdrantClient
 from qdrant_client.models import (
     Distance, VectorParams, PointStruct, Filter, FieldCondition, MatchValue,
@@ -24,15 +25,16 @@ VECTOR_DIM = 384  # all-MiniLM-L6-v2 output dimension
 _model = None
 
 
-def get_embed_model() -> SentenceTransformer:
+def get_embed_model() -> TextEmbedding:
     global _model
     if _model is None:
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
+        _model = TextEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
     return _model
 
 
 def embed_text(text: str) -> list[float]:
-    return get_embed_model().encode(text, normalize_embeddings=True).tolist()
+    vector = next(iter(get_embed_model().embed([text])))
+    return vector.tolist()
 
 
 def get_qdrant_client() -> QdrantClient:
